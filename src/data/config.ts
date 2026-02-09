@@ -74,9 +74,6 @@ export const appConfig: AppConfig = {
       options: ["Genuine", "Cute", "Popular", "Pretty"],
       answer: "Popular",
       memories: [
-        { url: "/chosen_round_videos_trimmed/01_Feb-25/18_feb_2025_9.mp4", caption: "18 feb 2025 9" },
-        { url: "/chosen_round_videos_trimmed/01_Feb-25/19_feb_2025_10.mp4", caption: "19 feb 2025 10" },
-        { url: "/chosen_round_videos_trimmed/01_Feb-25/19_feb_2025_2.mp4", caption: "19 feb 2025 2" },
         { url: "/chosen_round_videos_trimmed_low/01_Feb-25/13_feb_2025_9.mp4", caption: "13 feb 2025 9" },
         { url: "/chosen_round_videos_trimmed_low/01_Feb-25/14_feb_2025_2.mp4", caption: "14 feb 2025 2" },
         { url: "/chosen_round_videos_trimmed_low/01_Feb-25/14_feb_2025_3.mp4", caption: "14 feb 2025 3" },
