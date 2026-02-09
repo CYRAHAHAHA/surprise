@@ -31,6 +31,17 @@ const SceneSnapshot = ({ config }: SceneSnapshotProps) => {
     [config.questions]
   );
 
+  const rowLayout = [4, 3, 3, 4];
+  const rows = useMemo(() => {
+    const built: SnapshotItem[][] = [];
+    let cursor = 0;
+    rowLayout.forEach((count) => {
+      built.push(items.slice(cursor, cursor + count));
+      cursor += count;
+    });
+    return built;
+  }, [items]);
+
   return (
     <motion.div
       className="mx-auto flex w-full max-w-6xl flex-col gap-6"
@@ -47,29 +58,39 @@ const SceneSnapshot = ({ config }: SceneSnapshotProps) => {
             </h2>
             <p className="text-sm text-ink/70">{config.snapshot.subtitle}</p>
           </div>
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-6">
-            {items.map((item) => (
-              <button
-                key={item.key}
-                onClick={() => setActive(item)}
-                className="group flex min-h-[120px] flex-col justify-between rounded-3xl border border-white/60 bg-white/60 p-4 text-left transition hover:scale-[1.01]"
+          <div className="flex flex-col gap-3">
+            {rows.map((row, rowIndex) => (
+              <div
+                key={`row-${rowIndex}`}
+                className="grid gap-3"
+                style={{
+                  gridTemplateColumns: `repeat(${row.length}, minmax(0, 1fr))`,
+                }}
               >
-                <div className="text-xs uppercase tracking-[0.3em] text-ink/50">
-                  {item.type === "intro"
-                    ? "Intro"
-                    : item.type === "proposal"
-                      ? "Finale"
-                      : `Q${item.question.id}`}
-                </div>
-                <div className="mt-4 text-sm font-semibold text-ink">
-                  {item.type === "intro"
-                    ? config.intro.title
-                    : item.type === "proposal"
-                      ? config.proposal.message
-                      : item.question.text}
-                </div>
-                <span className="mt-2 text-xs text-rose/80">Tap to replay</span>
-              </button>
+                {row.map((item) => (
+                  <button
+                    key={item.key}
+                    onClick={() => setActive(item)}
+                    className="group flex min-h-[120px] flex-col justify-between rounded-3xl border border-white/60 bg-white/60 p-4 text-left transition hover:scale-[1.01]"
+                  >
+                    <div className="text-xs uppercase tracking-[0.3em] text-ink/50">
+                      {item.type === "intro"
+                        ? "Intro"
+                        : item.type === "proposal"
+                          ? "Finale"
+                          : `Q${item.question.id}`}
+                    </div>
+                    <div className="mt-4 text-sm font-semibold text-ink">
+                      {item.type === "intro"
+                        ? config.intro.title
+                        : item.type === "proposal"
+                          ? config.proposal.message
+                          : item.question.text}
+                    </div>
+                    <span className="mt-2 text-xs text-rose/80">Tap to replay</span>
+                  </button>
+                ))}
+              </div>
             ))}
           </div>
         </div>

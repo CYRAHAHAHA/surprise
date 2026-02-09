@@ -48,7 +48,7 @@ const SceneProposal = ({
       exit={{ scale: 0.9, opacity: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      <GlassCard className={isCompact ? "p-4" : "p-8"}>
+      <GlassCard className={`mx-auto w-full min-h-[520px] ${isCompact ? "p-4" : "p-8"}`}>
         <div className="flex flex-col gap-4 text-center">
           <h2 className="font-display text-3xl text-ink">{title}</h2>
           <p className="text-lg text-ink/70">{message}</p>

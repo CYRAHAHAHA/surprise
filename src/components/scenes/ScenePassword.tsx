@@ -34,13 +34,13 @@ const ScenePassword = ({ password, copy, onSuccess }: ScenePasswordProps) => {
 
   return (
     <motion.div
-      className="mx-auto flex w-full max-w-md flex-col items-center gap-6 text-center"
+      className="mx-auto flex w-full max-w-3xl flex-col items-center gap-6 text-center"
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.9, opacity: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      <GlassCard className="w-full">
+      <GlassCard className="mx-auto w-full min-h-[520px]">
         <h1 className="mb-2 font-display text-3xl text-ink">{copy.title}</h1>
         <p className="mb-6 text-sm text-ink/70">{copy.subtitle}</p>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">

@@ -22,6 +22,8 @@ type SceneQuestionProps = {
 };
 
 type Bubble = {
+  startX: number;
+  startY: number;
   driftX: number;
   driftY: number;
   duration: number;
@@ -47,6 +49,8 @@ const SceneQuestion = ({
   const bubbles = useMemo<Bubble[]>(
     () =>
       question.memories.map(() => ({
+        startX: 50 + randomBetween(-25, 25),
+        startY: 50 + randomBetween(-25, 25),
         driftX: randomBetween(-60, 60),
         driftY: randomBetween(-60, 60),
         duration: randomBetween(10, 18),
@@ -98,13 +102,13 @@ const SceneQuestion = ({
 
   return (
     <motion.div
-      className="mx-auto flex w-full max-w-4xl flex-col gap-6"
+      className="mx-auto flex w-full max-w-3xl flex-col gap-6"
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.9, opacity: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      <GlassCard className={isCompact ? "p-4" : "p-8"}>
+      <GlassCard className={`mx-auto w-full min-h-[520px] ${isCompact ? "p-4" : "p-8"}`}>
         {phase !== "memories" ? (
           <div className="flex flex-col gap-6">
             <div className="text-xs uppercase tracking-[0.3em] text-ink/50">
@@ -145,15 +149,15 @@ const SceneQuestion = ({
           </div>
         ) : (
           <div className="flex flex-col gap-4">
-            <div
-              className={`relative overflow-hidden rounded-3xl border border-white/60 bg-white/50 ${
-                isCompact ? "h-64" : "h-80"
-              }`}
-            >
+            <div className="relative mx-auto h-[450px] w-full max-w-[700px] overflow-hidden rounded-3xl border border-white/60 bg-white/50">
               {question.memories.map((memory, idx) => (
                 <motion.div
                   key={`${memory.url}-${idx}`}
-                  className="absolute left-1/2 top-1/2 flex w-36 -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-2"
+                  className="absolute flex w-36 -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-2"
+                  style={{
+                    left: `${bubbles[idx]?.startX ?? 50}%`,
+                    top: `${bubbles[idx]?.startY ?? 50}%`,
+                  }}
                   animate={{
                     x: [0, bubbles[idx]?.driftX ?? 0],
                     y: [0, bubbles[idx]?.driftY ?? 0],
@@ -168,9 +172,6 @@ const SceneQuestion = ({
                   <div className="h-28 w-28 overflow-hidden rounded-full border border-white/70 shadow-lg">
                     {renderBubbleMedia(memory.url)}
                   </div>
-                  <p className="text-center text-xs text-ink/70">
-                    {memory.caption}
-                  </p>
                 </motion.div>
               ))}
             </div>
