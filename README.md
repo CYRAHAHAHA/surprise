@@ -22,6 +22,12 @@ Examples:
 
 Videos autoplay and loop by default. If you use videos inside `memories`, they will autoplay inside the bubbles.
 
+If you want to use the trimmed month folders, keep them under:
+`public/chosen_round_videos_trimmed/<month>/<file>.mp4`
+
+For bubble performance, the app can use low-res proxies at:
+`public/chosen_round_videos_trimmed_low/<month>/<file>.mp4`
+
 ## Local development
 
 1. Install deps:

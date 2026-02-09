@@ -29,7 +29,7 @@ const SceneHook = ({
       exit={{ scale: 0.9, opacity: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      <GlassCard className={isCompact ? "p-4" : "p-8"}>
+      <GlassCard className={`mx-auto w-full min-h-[520px] ${isCompact ? "p-4" : "p-8"}`}>
         <div className="flex flex-col gap-4">
           <div className="overflow-hidden rounded-3xl border border-white/60">
             <video
