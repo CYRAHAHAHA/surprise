@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import GlassCard from "../ui/GlassCard";
 import MotionButton from "../ui/MotionButton";
@@ -45,6 +45,7 @@ const SceneQuestion = ({
   );
   const [showNext, setShowNext] = useState(false);
   const [feedbackTimer, setFeedbackTimer] = useState<number | null>(null);
+  const bubbleBoundsRef = useRef<HTMLDivElement | null>(null);
 
   const activeCopy = question.sceneCopy ?? copy;
 
@@ -53,21 +54,44 @@ const SceneQuestion = ({
       if (!question.memories.length) {
         return [];
       }
-      const minX = 10;
-      const maxX = 90;
-      const minY = 10;
-      const maxY = 90;
-      const minDistance = 20;
+      const containerWidth = 700;
+      const containerHeight = 450;
+      const bubbleDiameter = 112;
+      const bubbleRadius = bubbleDiameter / 2;
+      const minX = (bubbleRadius / containerWidth) * 100;
+      const maxX = 100 - minX;
+      const minY = (bubbleRadius / containerHeight) * 100;
+      const maxY = 100 - minY;
+      const minDistance = (bubbleDiameter / containerWidth) * 100 * 1.15;
       const scaleY = 700 / 450;
+      const targetCenterX = 30;
+      const targetCenterY = 30;
+      const maxDriftX = 140;
+      const maxDriftY = 140;
+      const maxTangential = 140;
       const clamp = (value: number, min: number, max: number) =>
         Math.min(Math.max(value, min), max);
 
-      const points = question.memories.map(() => ({
-        x: 50 + randomBetween(-35, 35),
-        y: 50 + randomBetween(-30, 30),
-      }));
+      const rows = 3;
+      const cols = 4;
+      const centers: Array<{ x: number; y: number }> = [];
+      for (let r = 0; r < rows; r += 1) {
+        for (let c = 0; c < cols; c += 1) {
+          centers.push({
+            x: minX + ((c + 0.5) / cols) * (maxX - minX),
+            y: minY + ((r + 0.5) / rows) * (maxY - minY),
+          });
+        }
+      }
+      const points = question.memories.map((_, idx) => {
+        const center = centers[idx % centers.length];
+        return {
+          x: clamp(center.x + randomBetween(-14, 14), minX, maxX),
+          y: clamp(center.y + randomBetween(-12, 12), minY, maxY),
+        };
+      });
 
-      for (let iter = 0; iter < 40; iter += 1) {
+      for (let iter = 0; iter < 90; iter += 1) {
         let moved = false;
         for (let i = 0; i < points.length; i += 1) {
           for (let j = i + 1; j < points.length; j += 1) {
@@ -83,6 +107,14 @@ const SceneQuestion = ({
               points[j].x -= nx * push;
               points[j].y -= (ny / scaleY) * push;
               moved = true;
+            } else if (dist === 0) {
+              const angle = Math.random() * Math.PI * 2;
+              const nudge = minDistance * 0.05;
+              points[i].x += Math.cos(angle) * nudge;
+              points[i].y += Math.sin(angle) * nudge;
+              points[j].x -= Math.cos(angle) * nudge;
+              points[j].y -= Math.sin(angle) * nudge;
+              moved = true;
             }
           }
         }
@@ -95,20 +127,73 @@ const SceneQuestion = ({
         }
       }
 
-      const avgX =
-        points.reduce((sum, point) => sum + point.x, 0) / points.length;
-      const avgY =
-        points.reduce((sum, point) => sum + point.y, 0) / points.length;
-      const shiftX = 50 - avgX;
-      const shiftY = 50 - avgY;
+      for (let iter = 0; iter < 3; iter += 1) {
+        const avgX =
+          points.reduce((sum, point) => sum + point.x, 0) / points.length;
+        const avgY =
+          points.reduce((sum, point) => sum + point.y, 0) / points.length;
+        const shiftX = targetCenterX - avgX;
+        const shiftY = targetCenterY - avgY;
+        for (const point of points) {
+          point.x = clamp(point.x + shiftX, minX, maxX);
+          point.y = clamp(point.y + shiftY, minY, maxY);
+        }
+      }
 
-      return points.map((point) => ({
-        startX: clamp(point.x + shiftX, minX, maxX),
-        startY: clamp(point.y + shiftY, minY, maxY),
-        driftX: randomBetween(-60, 60),
-        driftY: randomBetween(-60, 60),
-        duration: randomBetween(12, 20),
-      }));
+      return points.map((point) => {
+        const startX = clamp(point.x, minX, maxX);
+        const startY = clamp(point.y, minY, maxY);
+        const leftPx = ((startX - minX) / 100) * containerWidth;
+        const rightPx = ((maxX - startX) / 100) * containerWidth;
+        const topPx = ((startY - minY) / 100) * containerHeight;
+        const bottomPx = ((maxY - startY) / 100) * containerHeight;
+        const dxPx = ((startX - targetCenterX) / 100) * containerWidth;
+        const dyPx = ((startY - targetCenterY) / 100) * containerHeight;
+        const vecLen = Math.hypot(dxPx, dyPx) || 1;
+        const unitX = dxPx / vecLen;
+        const unitY = dyPx / vecLen;
+        const allowOutX = dxPx >= 0 ? rightPx : leftPx;
+        const allowOutY = dyPx >= 0 ? bottomPx : topPx;
+        const allowInX = dxPx >= 0 ? leftPx : rightPx;
+        const allowInY = dyPx >= 0 ? topPx : bottomPx;
+        const outLimitX =
+          Math.abs(unitX) > 0.001 ? allowOutX / Math.abs(unitX) : Number.POSITIVE_INFINITY;
+        const outLimitY =
+          Math.abs(unitY) > 0.001 ? allowOutY / Math.abs(unitY) : Number.POSITIVE_INFINITY;
+        const inLimitX =
+          Math.abs(unitX) > 0.001 ? allowInX / Math.abs(unitX) : Number.POSITIVE_INFINITY;
+        const inLimitY =
+          Math.abs(unitY) > 0.001 ? allowInY / Math.abs(unitY) : Number.POSITIVE_INFINITY;
+        const outLimit = Math.min(outLimitX, outLimitY, maxDriftX, maxDriftY);
+        const inLimit = Math.min(inLimitX, inLimitY, maxDriftX, maxDriftY);
+        const radialFloor = outLimit < 20 ? -inLimit * 0.7 : -inLimit * 0.3;
+        const radialMag = randomBetween(radialFloor, outLimit);
+
+        const perpX = -unitY;
+        const perpY = unitX;
+        const tangentialLimitX =
+          Math.abs(perpX) > 0.001
+            ? (perpX >= 0 ? rightPx : leftPx) / Math.abs(perpX)
+            : Number.POSITIVE_INFINITY;
+        const tangentialLimitY =
+          Math.abs(perpY) > 0.001
+            ? (perpY >= 0 ? bottomPx : topPx) / Math.abs(perpY)
+            : Number.POSITIVE_INFINITY;
+        const tangentialLimit = Math.min(tangentialLimitX, tangentialLimitY, maxTangential);
+        const tangentialMag = randomBetween(-tangentialLimit, tangentialLimit);
+
+        let driftX = unitX * radialMag + perpX * tangentialMag;
+        let driftY = unitY * radialMag + perpY * tangentialMag;
+        driftX = clamp(driftX, -leftPx, rightPx);
+        driftY = clamp(driftY, -topPx, bottomPx);
+        return {
+          startX,
+          startY,
+          driftX,
+          driftY,
+          duration: randomBetween(12, 20),
+        };
+      });
     },
     [question.memories]
   );
@@ -205,7 +290,10 @@ const SceneQuestion = ({
           </div>
         ) : (
           <div className="flex flex-col gap-4">
-            <div className="relative mx-auto h-[450px] w-full max-w-[700px] overflow-hidden rounded-3xl border border-white/60 bg-white/50">
+            <div
+              ref={bubbleBoundsRef}
+              className="relative mx-auto h-[450px] w-full max-w-[700px] overflow-hidden rounded-3xl border border-white/60 bg-white/50"
+            >
               {question.memories.map((memory, idx) => (
                 <motion.div
                   key={`${memory.url}-${idx}`}
@@ -214,6 +302,10 @@ const SceneQuestion = ({
                     left: `${bubbles[idx]?.startX ?? 50}%`,
                     top: `${bubbles[idx]?.startY ?? 50}%`,
                   }}
+                  drag
+                  dragConstraints={bubbleBoundsRef}
+                  dragElastic={0.2}
+                  dragMomentum={false}
                   animate={{
                     x: [0, bubbles[idx]?.driftX ?? 0],
                     y: [0, bubbles[idx]?.driftY ?? 0],

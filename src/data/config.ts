@@ -70,7 +70,9 @@ export const appConfig: AppConfig = {
     errorText: "Unlimited tries u got dis",
   },
   intro: {
-    title: "Valentine's Quest",
+    title: "Remember dis?",
+    message:
+      "For you to make an informed choice, I made this quiz to remind you of what I am",
     videoUrl: "/media/intro.mp4",
     primaryCta: "Okei",
     secondaryCta: "No la u den",
@@ -83,10 +85,10 @@ export const appConfig: AppConfig = {
       options: ["Genuine", "Cute", "Popular", "Pretty"],
       answer: "Popular",
       sceneCopy: {
-        correctText: "Nailed it, babe.",
-        incorrectText: "Cute guess. Here is the memory.",
-        memoryHint: "February magic floating around.",
-        loadingText: "Gathering petals...",
+        correctText: "Of course you would get it right bb of course !!",
+        incorrectText: "Cute guess !!",
+        memoryHint: "February 2025: Will we see the end tgt...?",
+        loadingText: "Loading February 2025...",
       },
       memories: [
         {
@@ -257,10 +259,11 @@ export const appConfig: AppConfig = {
       options: ["Funny", "Man-bun", "Cannot swim", "Smol School"],
       answer: "Man-bun",
       sceneCopy: {
-        correctText: "You remembered!",
-        incorrectText: "Still sweet. Watch this.",
-        memoryHint: "Our song in tiny bubbles.",
-        loadingText: "Cueing the chorus...",
+        correctText: "Of course you'd choose manbun",
+        incorrectText: "i mean ya la but u den",
+        memoryHint:
+          "1 month til you're flying... we still like ea other after a month!",
+        loadingText: "Loading March 2025...",
       },
       memories: [
         {
@@ -436,10 +439,10 @@ export const appConfig: AppConfig = {
       ],
       answer: "Dead Rat",
       sceneCopy: {
-        correctText: "Perfect.",
-        incorrectText: "Close enough. See this.",
-        memoryHint: "Mochi moments drifting by.",
-        loadingText: "Finding the memory...",
+        correctText: "haha yay",
+        incorrectText: "soli bb hahaha",
+        memoryHint: "Welcome to Europe !!",
+        loadingText: "Loading April 2025...",
       },
       memories: [
         {
@@ -615,10 +618,10 @@ export const appConfig: AppConfig = {
       ],
       answer: "Jacket with no gloves and no shoes",
       sceneCopy: {
-        correctText: "Exactly right.",
-        incorrectText: "Dessert first, always.",
-        memoryHint: "A rainy memory cloud.",
-        loadingText: "Saving a slice...",
+        correctText: "Not cold at all.",
+        incorrectText: "no ba it was colder ba",
+        memoryHint: "MAY WAS LOVELY !!",
+        loadingText: "Loading May 2025...",
       },
       memories: [
         {
@@ -789,10 +792,10 @@ export const appConfig: AppConfig = {
       options: ["Nicky", "Parry", "Rangy", "Yirongy"],
       answer: "Yirongy",
       sceneCopy: {
-        correctText: "Yes, that one.",
-        incorrectText: "Still adorable. Look.",
-        memoryHint: "Photo booth chaos.",
-        loadingText: "Shuffling memories...",
+        correctText: "Who else",
+        incorrectText: "huhhhhhhhhhhhhhhhhhhhhhhhhhh",
+        memoryHint: "SHAWNNNNNNN and end of trip sed",
+        loadingText: "Loading June 2025...",
       },
       memories: [
         {
@@ -960,13 +963,13 @@ export const appConfig: AppConfig = {
     {
       id: 6,
       text: "My most fearful phrase is 'u-",
-      options: ["hates me'", "donch cares'", "lol'", "HATES'"],
-      answer: "lol",
+      options: ["hates me'", "donch cares'", "lol'", "knows'"],
+      answer: "lol'",
       sceneCopy: {
-        correctText: "You got it.",
-        incorrectText: "We still had fun.",
-        memoryHint: "Neon nights floating.",
-        loadingText: "Lighting it up...",
+        correctText: "u knows one",
+        incorrectText: "love u bb",
+        memoryHint: "BACK IN SG?!",
+        loadingText: "Loading July 2025...",
       },
       memories: [
         {
@@ -1142,10 +1145,10 @@ export const appConfig: AppConfig = {
       ],
       answer: "eat your food",
       sceneCopy: {
-        correctText: "Absolutely.",
-        incorrectText: "I still steal it.",
-        memoryHint: "Matcha memories.",
-        loadingText: "Pouring the next sip...",
+        correctText: "of course",
+        incorrectText: "no la u den",
+        memoryHint: "School is comin but we do be meetin",
+        loadingText: "Loading Aug 2025...",
       },
       memories: [
         {
@@ -1316,10 +1319,10 @@ export const appConfig: AppConfig = {
       options: ["Munich", "Prague", "Hallstatt", "Budapesht"],
       answer: "Munich",
       sceneCopy: {
-        correctText: "Right on.",
-        incorrectText: "But it was perfect.",
-        memoryHint: "Old town bubbles.",
-        loadingText: "Rewinding the trip...",
+        correctText: "oops hahhahaa",
+        incorrectText: "ooopsss hahahhaa play play play",
+        memoryHint: "Schooooooollllllll",
+        loadingText: "Loading Sep 2025...",
       },
       memories: [
         {
@@ -1475,10 +1478,11 @@ export const appConfig: AppConfig = {
       ],
       answer: "Burning your pot",
       sceneCopy: {
-        correctText: "Yes, that name.",
-        incorrectText: "Still ours.",
-        memoryHint: "Playlist feelings.",
-        loadingText: "Pressing play...",
+        correctText: "yaaaaaa sed",
+        incorrectText: "yes that too ig",
+        memoryHint:
+          "enhypen, luggage market, edelman, there was alot... and eating my house !!",
+        loadingText: "Loading Oct 2025...",
       },
       memories: [
         {
@@ -1620,13 +1624,181 @@ export const appConfig: AppConfig = {
       sceneCopy: {
         correctText: "All of it.",
         incorrectText: "Still all of it.",
-        memoryHint: "Heartbeats in bubbles.",
-        loadingText: "Gathering feelings...",
+        memoryHint: "Lots of things including me being bz sed !!",
+        loadingText: "Loading Nov 2025...",
       },
       memories: [
         {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/08_nov_2025_11.mp4",
+          caption: "08 nov 2025 11",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/08_nov_2025_13.mp4",
+          caption: "08 nov 2025 13",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/08_nov_2025_14.mp4",
+          caption: "08 nov 2025 14",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/08_nov_2025_18.mp4",
+          caption: "08 nov 2025 18",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/08_nov_2025_20.mp4",
+          caption: "08 nov 2025 20",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/08_nov_2025_9.mp4",
+          caption: "08 nov 2025 9",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/09_nov_2025_1.mp4",
+          caption: "09 nov 2025 1",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/09_nov_2025_10.mp4",
+          caption: "09 nov 2025 10",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/09_nov_2025_11.mp4",
+          caption: "09 nov 2025 11",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/09_nov_2025_2.mp4",
+          caption: "09 nov 2025 2",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/09_nov_2025_6.mp4",
+          caption: "09 nov 2025 6",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/09_nov_2025_8.mp4",
+          caption: "09 nov 2025 8",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/10_nov_2025_14.mp4",
+          caption: "10 nov 2025 14",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/10_nov_2025_15.mp4",
+          caption: "10 nov 2025 15",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/10_nov_2025_5.mp4",
+          caption: "10 nov 2025 5",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/10_nov_2025_6.mp4",
+          caption: "10 nov 2025 6",
+        },
+        {
           url: "/chosen_round_videos_trimmed_low/10_Nov-25/12_nov_2025_8.mp4",
           caption: "12 nov 2025 8",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/18_nov_2025_10.mp4",
+          caption: "18 nov 2025 10",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/18_nov_2025_11.mp4",
+          caption: "18 nov 2025 11",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/19_nov_2025_8.mp4",
+          caption: "19 nov 2025 8",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/19_nov_2025_9.mp4",
+          caption: "19 nov 2025 9",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/20_nov_2025_4.mp4",
+          caption: "20 nov 2025 4",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/20_nov_2025_5.mp4",
+          caption: "20 nov 2025 5",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/21_nov_2025_16.mp4",
+          caption: "21 nov 2025 16",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/21_nov_2025_17.mp4",
+          caption: "21 nov 2025 17",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/21_nov_2025_7.mp4",
+          caption: "21 nov 2025 7",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/21_nov_2025_8.mp4",
+          caption: "21 nov 2025 8",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/22_nov_2025_17.mp4",
+          caption: "22 nov 2025 17",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/22_nov_2025_18.mp4",
+          caption: "22 nov 2025 18",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/22_nov_2025_8.mp4",
+          caption: "22 nov 2025 8",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/22_nov_2025_9.mp4",
+          caption: "22 nov 2025 9",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/23_nov_2025_12.mp4",
+          caption: "23 nov 2025 12",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/23_nov_2025_13.mp4",
+          caption: "23 nov 2025 13",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/23_nov_2025_21.mp4",
+          caption: "23 nov 2025 21",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/23_nov_2025_22.mp4",
+          caption: "23 nov 2025 22",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/23_nov_2025_3.mp4",
+          caption: "23 nov 2025 3",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/23_nov_2025_4.mp4",
+          caption: "23 nov 2025 4",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/24_nov_2025_1.mp4",
+          caption: "24 nov 2025 1",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/24_nov_2025_10.mp4",
+          caption: "24 nov 2025 10",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/24_nov_2025_11.mp4",
+          caption: "24 nov 2025 11",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/24_nov_2025_19.mp4",
+          caption: "24 nov 2025 19",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/24_nov_2025_2.mp4",
+          caption: "24 nov 2025 2",
+        },
+        {
+          url: "/chosen_round_videos_trimmed_low/10_Nov-25/25_nov_2025_1.mp4",
+          caption: "25 nov 2025 1",
         },
         {
           url: "/chosen_round_videos_trimmed_low/10_Nov-25/25_nov_2025_18.mp4",
@@ -1640,19 +1812,15 @@ export const appConfig: AppConfig = {
     },
     {
       id: 11,
-      text: "Which moment felt like a movie scene?",
-      options: [
-        "The slow dance",
-        "The rainy walk",
-        "The surprise visit",
-        "The sunrise",
-      ],
-      answer: "The slow dance",
+      text: "How did I feel meeting your parents first time?",
+      options: ["scared", "scared", "scared", "scared"],
+      answer: "scared",
       sceneCopy: {
-        correctText: "Movie moment.",
-        incorrectText: "Still cinematic.",
-        memoryHint: "Scenes we loved.",
-        loadingText: "Rolling film...",
+        correctText: "scared",
+        incorrectText: "scared",
+        memoryHint:
+          "WAHHHHH owe had some time here and woah meet the parents !!",
+        loadingText: "Loading Dec 2025...",
       },
       memories: [
         {
@@ -1731,14 +1899,14 @@ export const appConfig: AppConfig = {
     },
     {
       id: 12,
-      text: "What's my favorite thing about us?",
-      options: ["Our jokes", "Our adventures", "Our calm", "Everything"],
-      answer: "Everything",
+      text: "Enough of the negativity, how much can I squat?",
+      options: ["142.5kg", "120kg", "160kg", "150kg"],
+      answer: "142.5kg",
       sceneCopy: {
-        correctText: "Always.",
-        incorrectText: "Always.",
-        memoryHint: "Our favorite things.",
-        loadingText: "Collecting us...",
+        correctText: "yes.",
+        incorrectText: "no lah",
+        memoryHint: "HAPPY NEW YEAR WAHHH and you ate w my mother HAHA YAY i loved that !!",
+        loadingText: "Loading Jan 2026...",
       },
       memories: [
         {
@@ -1817,12 +1985,12 @@ export const appConfig: AppConfig = {
     },
   ],
   proposal: {
-    title: "One last thing",
-    message: "Will you be my Valentine?",
+    title: "Now that you're reminded of this thing of a SG man you're dating right now...",
+    message: "",
     audioUrl: "/media/proposal.mp3",
     yesText: "Yes",
     noText: "No",
-    successMessage: "You just made me the happiest person ever.",
+    successMessage: "Thank you for enriching my life 💖",
   },
   questionScene: {
     correctText: "Perfectly right.",
@@ -1831,8 +1999,9 @@ export const appConfig: AppConfig = {
     loadingText: "Collecting the next moment...",
   },
   snapshot: {
-    title: "Our Valentine Timeline",
-    subtitle: "Tap any card to replay it.",
+    title: "The Valentine Timeline",
+    subtitle: "type 'kellygoh' to return back here from home page",
   },
 };
+
 

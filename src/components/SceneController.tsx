@@ -21,6 +21,7 @@ const SceneController = () => {
   const [answers, setAnswers] = useState<Answer[]>([]);
 
   const handlePasswordSuccess = () => setScene("hook");
+  const handleSecret = () => setScene("snapshot");
   const handleIntroContinue = () => setScene("question");
 
   const handleAnswered = (correct: boolean, selected: string) => {
@@ -67,6 +68,7 @@ const SceneController = () => {
               password={appConfig.password}
               copy={appConfig.passwordScene}
               onSuccess={handlePasswordSuccess}
+              onSecret={handleSecret}
             />
           </motion.div>
         ) : null}

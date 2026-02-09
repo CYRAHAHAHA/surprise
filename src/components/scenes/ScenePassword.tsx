@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import GlassCard from "../ui/GlassCard";
 import MotionButton from "../ui/MotionButton";
@@ -16,11 +16,27 @@ type ScenePasswordProps = {
   password: string;
   copy: ScenePasswordCopy;
   onSuccess: () => void;
+  onSecret?: () => void;
 };
 
-const ScenePassword = ({ password, copy, onSuccess }: ScenePasswordProps) => {
+const ScenePassword = ({
+  password,
+  copy,
+  onSuccess,
+  onSecret,
+}: ScenePasswordProps) => {
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
+  const [secretTriggered, setSecretTriggered] = useState(false);
+
+  useEffect(() => {
+    if (secretTriggered) return;
+    if (value.trim().toLowerCase() === "kellygoh") {
+      setSecretTriggered(true);
+      setError("");
+      onSecret?.();
+    }
+  }, [value, secretTriggered, onSecret]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
