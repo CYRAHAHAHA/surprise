@@ -121,6 +121,7 @@ const SceneSnapshot = ({ config }: SceneSnapshotProps) => {
                   title={config.intro.title}
                   message={config.intro.message}
                   videoUrl={config.intro.videoUrl}
+                  videoUrls={config.intro.videoUrls}
                   primaryCta={config.intro.primaryCta}
                   secondaryCta={config.intro.secondaryCta}
                   onContinue={() => setActive(null)}

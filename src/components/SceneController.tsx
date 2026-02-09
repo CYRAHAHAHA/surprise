@@ -1,11 +1,12 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ScenePassword from "./scenes/ScenePassword";
 import SceneHook from "./scenes/SceneHook";
 import SceneQuestion from "./scenes/SceneQuestion";
 import SceneProposal from "./scenes/SceneProposal";
 import SceneSnapshot from "./scenes/SceneSnapshot";
 import { appConfig } from "../data/config";
+import { useSfx } from "../hooks/useSfx";
 
 type SceneKey = "password" | "hook" | "question" | "proposal" | "snapshot";
 
@@ -19,6 +20,8 @@ const SceneController = () => {
   const [scene, setScene] = useState<SceneKey>("password");
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>([]);
+  const { play } = useSfx();
+  const previousScene = useRef<SceneKey>("password");
 
   const handlePasswordSuccess = () => setScene("hook");
   const handleSecret = () => setScene("snapshot");
@@ -46,6 +49,13 @@ const SceneController = () => {
   };
 
   const handleAccept = () => setScene("snapshot");
+
+  useEffect(() => {
+    if (previousScene.current !== scene) {
+      play("transition");
+      previousScene.current = scene;
+    }
+  }, [scene, play]);
 
   const sceneVariants = {
     initial: { opacity: 0, scale: 0 },
@@ -82,6 +92,7 @@ const SceneController = () => {
               title={appConfig.intro.title}
               message={appConfig.intro.message}
               videoUrl={appConfig.intro.videoUrl}
+              videoUrls={appConfig.intro.videoUrls}
               primaryCta={appConfig.intro.primaryCta}
               secondaryCta={appConfig.intro.secondaryCta}
               onContinue={handleIntroContinue}

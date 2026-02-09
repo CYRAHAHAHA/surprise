@@ -6,6 +6,7 @@ type SceneHookProps = {
   title: string;
   message: string;
   videoUrl: string;
+  videoUrls?: string[];
   primaryCta: string;
   secondaryCta: string;
   onContinue: () => void;
@@ -16,11 +17,13 @@ const SceneHook = ({
   title,
   message,
   videoUrl,
+  videoUrls,
   primaryCta,
   secondaryCta,
   onContinue,
   isCompact,
 }: SceneHookProps) => {
+  const sources = videoUrls && videoUrls.length ? videoUrls : [videoUrl];
   return (
     <motion.div
       className="mx-auto flex w-full max-w-3xl flex-col gap-6"
@@ -31,15 +34,28 @@ const SceneHook = ({
     >
       <GlassCard className={`mx-auto w-full min-h-[520px] ${isCompact ? "p-4" : "p-8"}`}>
         <div className="flex flex-col gap-4">
-          <div className="overflow-hidden rounded-3xl border border-white/60">
-            <video
-              className={`w-full object-cover ${isCompact ? "h-44 md:h-52" : "h-56 md:h-72"}`}
-              src={videoUrl}
-              autoPlay
-              loop
-              muted
-              playsInline
-            />
+          <div
+            className={`grid gap-3 ${
+              sources.length > 1 ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"
+            }`}
+          >
+            {sources.map((src) => (
+              <div
+                key={src}
+                className="overflow-hidden rounded-3xl border border-white/60"
+              >
+                <video
+                  className={`w-full object-cover ${
+                    isCompact ? "h-44 md:h-52" : "h-56 md:h-72"
+                  }`}
+                  src={src}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                />
+              </div>
+            ))}
           </div>
           <div>
             <h2 className="font-display text-3xl text-ink">{title}</h2>

@@ -33,12 +33,22 @@ export type AppConfig = {
     title: string;
     message: string;
     videoUrl: string;
+    videoUrls?: string[];
     primaryCta: string;
     secondaryCta: string;
   };
-  questions: Question[
-
-];
+  sfx?: {
+    enabled?: boolean;
+    volume?: number;
+    sounds?: {
+      click?: string;
+      correct?: string;
+      incorrect?: string;
+      transition?: string;
+      success?: string;
+    };
+  };
+  questions: Question[];
   proposal: {
     title: string;
     message: string;
@@ -73,10 +83,21 @@ export const appConfig: AppConfig = {
     title: "Remember dis?",
     message:
       "For you to make an informed choice, I made this quiz to remind you of what I am",
-    videoUrl: "/media/intro.mp4",
+    videoUrls: ["/data/1.mp4", "/data/2.mp4"],
     primaryCta: "Okei",
     secondaryCta: "No la u den",
     secondaryCta: "Ew no",
+  },
+  sfx: {
+    enabled: true,
+    volume: 0.4,
+    sounds: {
+      click: "/sfx/click.wav",
+      correct: "/sfx/correct.wav",
+      incorrect: "/sfx/incorrect.wav",
+      transition: "/sfx/transition.wav",
+      success: "/sfx/success.wav",
+    },
   },
   questions: [
     {
@@ -1905,7 +1926,8 @@ export const appConfig: AppConfig = {
       sceneCopy: {
         correctText: "yes.",
         incorrectText: "no lah",
-        memoryHint: "HAPPY NEW YEAR WAHHH and you ate w my mother HAHA YAY i loved that !!",
+        memoryHint:
+          "HAPPY NEW YEAR WAHHH and you ate w my mother HAHA YAY i loved that !!",
         loadingText: "Loading Jan 2026...",
       },
       memories: [
@@ -1985,7 +2007,8 @@ export const appConfig: AppConfig = {
     },
   ],
   proposal: {
-    title: "Now that you're reminded of this thing of a SG man you're dating right now...",
+    title:
+      "Now that you're reminded of this thing of a SG man you're dating right now...",
     message: "",
     audioUrl: "/media/proposal.mp3",
     yesText: "Yes",
@@ -2003,5 +2026,3 @@ export const appConfig: AppConfig = {
     subtitle: "type 'kellygoh' to return back here from home page",
   },
 };
-
-

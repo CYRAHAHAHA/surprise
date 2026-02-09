@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes } from "react";
 import { motion } from "framer-motion";
+import { useSfx } from "../../hooks/useSfx";
 
 type MotionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "primary" | "secondary" | "ghost";
@@ -19,6 +20,15 @@ const MotionButton = ({
   className = "",
   ...props
 }: MotionButtonProps) => {
+  const { play } = useSfx();
+  const handleClick: ButtonHTMLAttributes<HTMLButtonElement>["onClick"] = (
+    event
+  ) => {
+    if (!props.disabled) {
+      play("click");
+    }
+    props.onClick?.(event);
+  };
   return (
     <motion.button
       whileHover={props.disabled ? {} : { scale: 1.03 }}
@@ -26,6 +36,7 @@ const MotionButton = ({
       className={`rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-wide transition ${
         variants[variant]
       } ${className}`}
+      onClick={handleClick}
       {...props}
     />
   );

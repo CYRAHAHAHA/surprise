@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import GlassCard from "../ui/GlassCard";
 import MotionButton from "../ui/MotionButton";
+import { useSfx } from "../../hooks/useSfx";
 
 type ScenePasswordCopy = {
   title: string;
@@ -28,6 +29,7 @@ const ScenePassword = ({
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
   const [secretTriggered, setSecretTriggered] = useState(false);
+  const { play } = useSfx();
 
   useEffect(() => {
     if (secretTriggered) return;
@@ -42,9 +44,11 @@ const ScenePassword = ({
     event.preventDefault();
     if (value.trim().toLowerCase() === password.toLowerCase()) {
       setError("");
+      play("success");
       onSuccess();
     } else {
       setError(copy.errorText);
+      play("incorrect");
     }
   };
 

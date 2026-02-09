@@ -4,6 +4,7 @@ import GlassCard from "../ui/GlassCard";
 import MotionButton from "../ui/MotionButton";
 import { Question } from "../../data/config";
 import { randomBetween } from "../../utils/random";
+import { useSfx } from "../../hooks/useSfx";
 
 type SceneQuestionProps = {
   question: Question;
@@ -46,6 +47,7 @@ const SceneQuestion = ({
   const [showNext, setShowNext] = useState(false);
   const [feedbackTimer, setFeedbackTimer] = useState<number | null>(null);
   const bubbleBoundsRef = useRef<HTMLDivElement | null>(null);
+  const { play } = useSfx();
 
   const activeCopy = question.sceneCopy ?? copy;
 
@@ -216,9 +218,11 @@ const SceneQuestion = ({
 
   const handleSelect = (option: string) => {
     if (selected) return;
+    play("click");
     setSelected(option);
     const isCorrect = option === question.answer;
     onAnswered?.(isCorrect, option);
+    play(isCorrect ? "correct" : "incorrect");
     setPhase("feedback");
     const timer = window.setTimeout(() => setPhase("memories"), 900);
     setFeedbackTimer(timer);

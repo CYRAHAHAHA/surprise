@@ -31,6 +31,16 @@ For bubble performance, the app can use low-res proxies at:
 Each question can override its own microcopy under `sceneCopy` inside
 `src/data/config.ts`.
 
+## UI sound effects
+
+Place UI sounds under `public/sfx/` and keep the filenames in `src/data/config.ts`
+under `sfx.sounds`. Example:
+- `public/sfx/click.mp3`
+- `public/sfx/correct.mp3`
+- `public/sfx/incorrect.mp3`
+- `public/sfx/transition.mp3`
+- `public/sfx/success.mp3`
+
 ## Local development
 
 1. Install deps:
