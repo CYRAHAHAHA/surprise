@@ -86,7 +86,6 @@ export const appConfig: AppConfig = {
     videoUrls: ["/data/1.mp4", "/data/2.mp4"],
     primaryCta: "Okei",
     secondaryCta: "No la u den",
-    secondaryCta: "Ew no",
   },
   sfx: {
     enabled: true,
