@@ -1,8 +1,7 @@
-import { ButtonHTMLAttributes } from "react";
-import { motion } from "framer-motion";
+import { motion, type HTMLMotionProps } from "framer-motion";
 import { useSfx } from "../../hooks/useSfx";
 
-type MotionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+type MotionButtonProps = HTMLMotionProps<"button"> & {
   variant?: "primary" | "secondary" | "ghost";
 };
 
@@ -15,29 +14,31 @@ const variants: Record<NonNullable<MotionButtonProps["variant"]>, string> = {
     "bg-transparent text-ink/50 border border-white/40 cursor-not-allowed opacity-60",
 };
 
-const MotionButton = ({
-  variant = "primary",
-  className = "",
-  ...props
-}: MotionButtonProps) => {
+const MotionButton = (props: MotionButtonProps) => {
+  const {
+    variant = "primary",
+    className = "",
+    onClick,
+    disabled,
+    ...rest
+  } = props;
   const { play } = useSfx();
-  const handleClick: ButtonHTMLAttributes<HTMLButtonElement>["onClick"] = (
-    event
-  ) => {
-    if (!props.disabled) {
+  const handleClick: MotionButtonProps["onClick"] = (event) => {
+    if (!disabled) {
       play("click");
     }
-    props.onClick?.(event);
+    onClick?.(event);
   };
   return (
     <motion.button
-      whileHover={props.disabled ? {} : { scale: 1.03 }}
-      whileTap={props.disabled ? {} : { scale: 0.98 }}
+      whileHover={disabled ? {} : { scale: 1.03 }}
+      whileTap={disabled ? {} : { scale: 0.98 }}
       className={`rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-wide transition ${
         variants[variant]
       } ${className}`}
       onClick={handleClick}
-      {...props}
+      disabled={disabled}
+      {...rest}
     />
   );
 };

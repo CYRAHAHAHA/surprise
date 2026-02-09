@@ -32,7 +32,7 @@ export type AppConfig = {
   intro: {
     title: string;
     message: string;
-    videoUrl: string;
+    videoUrl?: string;
     videoUrls?: string[];
     primaryCta: string;
     secondaryCta: string;

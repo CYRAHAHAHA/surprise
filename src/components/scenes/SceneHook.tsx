@@ -5,7 +5,7 @@ import MotionButton from "../ui/MotionButton";
 type SceneHookProps = {
   title: string;
   message: string;
-  videoUrl: string;
+  videoUrl?: string;
   videoUrls?: string[];
   primaryCta: string;
   secondaryCta: string;
@@ -23,7 +23,7 @@ const SceneHook = ({
   onContinue,
   isCompact,
 }: SceneHookProps) => {
-  const sources = videoUrls && videoUrls.length ? videoUrls : [videoUrl];
+  const sources = videoUrls && videoUrls.length ? videoUrls : videoUrl ? [videoUrl] : [];
   return (
     <motion.div
       className="mx-auto flex w-full max-w-3xl flex-col gap-6"
