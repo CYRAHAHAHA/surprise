@@ -28,6 +28,9 @@ If you want to use the trimmed month folders, keep them under:
 For bubble performance, the app can use low-res proxies at:
 `public/chosen_round_videos_trimmed_low/<month>/<file>.mp4`
 
+Each question can override its own microcopy under `sceneCopy` inside
+`src/data/config.ts`.
+
 ## Local development
 
 1. Install deps:

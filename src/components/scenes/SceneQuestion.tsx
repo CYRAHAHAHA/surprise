@@ -46,15 +46,70 @@ const SceneQuestion = ({
   const [showNext, setShowNext] = useState(false);
   const [feedbackTimer, setFeedbackTimer] = useState<number | null>(null);
 
+  const activeCopy = question.sceneCopy ?? copy;
+
   const bubbles = useMemo<Bubble[]>(
-    () =>
-      question.memories.map(() => ({
-        startX: 50 + randomBetween(-25, 25),
-        startY: 50 + randomBetween(-25, 25),
+    () => {
+      if (!question.memories.length) {
+        return [];
+      }
+      const minX = 10;
+      const maxX = 90;
+      const minY = 10;
+      const maxY = 90;
+      const minDistance = 20;
+      const scaleY = 700 / 450;
+      const clamp = (value: number, min: number, max: number) =>
+        Math.min(Math.max(value, min), max);
+
+      const points = question.memories.map(() => ({
+        x: 50 + randomBetween(-35, 35),
+        y: 50 + randomBetween(-30, 30),
+      }));
+
+      for (let iter = 0; iter < 40; iter += 1) {
+        let moved = false;
+        for (let i = 0; i < points.length; i += 1) {
+          for (let j = i + 1; j < points.length; j += 1) {
+            const dx = points[i].x - points[j].x;
+            const dy = points[i].y - points[j].y;
+            const dist = Math.sqrt(dx * dx + (dy * scaleY) * (dy * scaleY));
+            if (dist > 0 && dist < minDistance) {
+              const push = (minDistance - dist) / 2;
+              const nx = dx / dist;
+              const ny = (dy * scaleY) / dist;
+              points[i].x += nx * push;
+              points[i].y += (ny / scaleY) * push;
+              points[j].x -= nx * push;
+              points[j].y -= (ny / scaleY) * push;
+              moved = true;
+            }
+          }
+        }
+        if (!moved) {
+          break;
+        }
+        for (const point of points) {
+          point.x = clamp(point.x, minX, maxX);
+          point.y = clamp(point.y, minY, maxY);
+        }
+      }
+
+      const avgX =
+        points.reduce((sum, point) => sum + point.x, 0) / points.length;
+      const avgY =
+        points.reduce((sum, point) => sum + point.y, 0) / points.length;
+      const shiftX = 50 - avgX;
+      const shiftY = 50 - avgY;
+
+      return points.map((point) => ({
+        startX: clamp(point.x + shiftX, minX, maxX),
+        startY: clamp(point.y + shiftY, minY, maxY),
         driftX: randomBetween(-60, 60),
         driftY: randomBetween(-60, 60),
-        duration: randomBetween(10, 18),
-      })),
+        duration: randomBetween(12, 20),
+      }));
+    },
     [question.memories]
   );
 
@@ -142,8 +197,9 @@ const SceneQuestion = ({
             {phase === "feedback" ? (
               <p className="text-sm font-semibold text-ink/70">
                 {selected === question.answer
-                  ? copy?.correctText ?? "Perfectly right."
-                  : copy?.incorrectText ?? "Still adorable. Here's the memory."}
+                  ? activeCopy?.correctText ?? "Perfectly right."
+                  : activeCopy?.incorrectText ??
+                    "Still adorable. Here's the memory."}
               </p>
             ) : null}
           </div>
@@ -176,13 +232,14 @@ const SceneQuestion = ({
               ))}
             </div>
             <p className="text-sm text-ink/70">
-              {copy?.memoryHint ?? "Little bubbles drifting through my favorite moments."}
+              {activeCopy?.memoryHint ??
+                "Little bubbles drifting through my favorite moments."}
             </p>
             {showNext ? (
               <MotionButton onClick={onNext}>{nextLabel}</MotionButton>
             ) : (
               <div className="text-xs uppercase tracking-[0.3em] text-ink/40">
-                {copy?.loadingText ?? "Collecting the next moment..."}
+                {activeCopy?.loadingText ?? "Collecting the next moment..."}
               </div>
             )}
           </div>
