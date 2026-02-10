@@ -23,6 +23,7 @@ jobs:
           node-version: 20
           cache: "npm"
       - run: npm ci
+      - run: rm -rf public/chosen_round_videos_trimmed
       - run: npm run build
         env:
           BASE_PATH: /${{ github.event.repository.name }}/
