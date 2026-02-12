@@ -7,8 +7,19 @@ import SceneProposal from "./scenes/SceneProposal";
 import SceneSnapshot from "./scenes/SceneSnapshot";
 import { appConfig } from "../data/config";
 import { useSfx } from "../hooks/useSfx";
+import { useBackground, SceneType } from "../hooks/useBackground";
+import { useBackgroundMusic } from "../hooks/useBackgroundMusic";
 
 type SceneKey = "password" | "hook" | "question" | "proposal" | "snapshot";
+
+// Map internal scene keys to background scene types
+const sceneToBackgroundMap: Record<SceneKey, SceneType> = {
+  password: "password",
+  hook: "intro",
+  question: "question",
+  proposal: "proposal",
+  snapshot: "snapshot",
+};
 
 type Answer = {
   id: number;
@@ -21,9 +32,14 @@ const SceneController = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>([]);
   const { play } = useSfx();
+  const { setScene: setBackgroundScene, setCustomBackground } = useBackground();
+  const { play: playMusic } = useBackgroundMusic();
   const previousScene = useRef<SceneKey>("password");
 
-  const handlePasswordSuccess = () => setScene("hook");
+  const handlePasswordSuccess = () => {
+    playMusic(); // Start background music after password unlocked
+    setScene("hook");
+  };
   const handleSecret = () => setScene("snapshot");
   const handleIntroContinue = () => setScene("question");
 
@@ -50,6 +66,19 @@ const SceneController = () => {
 
   const handleAccept = () => setScene("snapshot");
 
+  // Update background when scene changes
+  useEffect(() => {
+    setBackgroundScene(sceneToBackgroundMap[scene]);
+  }, [scene, setBackgroundScene]);
+
+  // Update custom background when question changes
+  useEffect(() => {
+    if (scene === "question") {
+      const question = appConfig.questions[currentQuestion];
+      setCustomBackground(question.backdrop);
+    }
+  }, [scene, currentQuestion, setCustomBackground]);
+
   useEffect(() => {
     if (previousScene.current !== scene) {
       play("transition");
@@ -64,9 +93,9 @@ const SceneController = () => {
   };
 
   return (
-    <div className="relative">
-      <div className="pointer-events-none absolute -top-10 left-10 h-32 w-32 rounded-full bg-softpink/40 blur-3xl" />
-      <div className="pointer-events-none absolute right-10 top-24 h-48 w-48 rounded-full bg-lavender/70 blur-3xl" />
+    <div className="relative h-full flex flex-col justify-center">
+      <div className="pointer-events-none absolute -top-10 left-10 h-24 w-24 rounded-full bg-softpink/40 blur-3xl" />
+      <div className="pointer-events-none absolute right-10 top-16 h-32 w-32 rounded-full bg-lavender/70 blur-3xl" />
       <AnimatePresence mode="wait">
         {scene === "password" ? (
           <motion.div
@@ -148,28 +177,13 @@ const SceneController = () => {
         ) : null}
       </AnimatePresence>
 
-      {scene === "question" || scene === "proposal" ? (
-        <div className="mt-10 flex justify-center gap-2 text-xs text-ink/50">
-          {appConfig.questions.map((question) => (
-            <span
-              key={question.id}
-              className={`h-2 w-2 rounded-full ${
-                currentQuestion >= question.id - 1
-                  ? "bg-rose"
-                  : "bg-white/70"
-              }`}
-            />
-          ))}
-        </div>
-      ) : null}
       {(() => {
         const statusText =
           scene === "snapshot"
             ? "Your answers are saved in your heart."
             : answers.length
-              ? `${answers.filter((ans) => ans.correct).length}/${
-                  appConfig.questions.length
-                } correct so far.`
+              ? `${answers.filter((ans) => ans.correct).length}/${appConfig.questions.length
+              } correct so far.`
               : "";
         return statusText ? (
           <div className="mt-6 text-center text-xs text-ink/40">{statusText}</div>

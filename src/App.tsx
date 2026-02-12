@@ -1,14 +1,23 @@
 import SceneController from "./components/SceneController";
 import { appConfig } from "./data/config";
 import { SfxProvider } from "./hooks/useSfx";
+import { BackgroundMusicProvider } from "./hooks/useBackgroundMusic";
+import { BackgroundProvider, BackgroundImage } from "./hooks/useBackground";
+import MusicToggle from "./components/ui/MusicToggle";
 
 const App = () => {
   return (
-    <div className="min-h-screen px-4 py-10 md:px-10">
-      <SfxProvider sfx={appConfig.sfx}>
-        <SceneController />
-      </SfxProvider>
-    </div>
+    <BackgroundProvider backgrounds={appConfig.backgrounds}>
+      <BackgroundMusicProvider config={appConfig.backgroundMusic}>
+        <BackgroundImage />
+        <div className="h-screen overflow-hidden px-3 py-6 md:px-6">
+          <SfxProvider sfx={appConfig.sfx}>
+            <SceneController />
+          </SfxProvider>
+        </div>
+        <MusicToggle />
+      </BackgroundMusicProvider>
+    </BackgroundProvider>
   );
 };
 

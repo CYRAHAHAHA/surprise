@@ -17,10 +17,41 @@ export type Question = {
   answer: string;
   memories: MemoryItem[];
   sceneCopy?: QuestionSceneCopy;
+  /** Optional background image for this specific question */
+  backdrop?: string;
+};
+
+export type BackgroundConfig = {
+  /** Background image for the password/unlock scene */
+  passwordScene: string;
+  /** Background image for the intro/hook scene */
+  introScene: string;
+  /** Background image for questions */
+  questionScene: string;
+  /** Background image for the proposal scene */
+  proposalScene: string;
+  /** Background image for the snapshot/gallery scene */
+  snapshotScene: string;
+  /** Default fallback background */
+  default: string;
+};
+
+export type BackgroundMusicConfig = {
+  enabled: boolean;
+  /** Path to background music file (mp3, wav, ogg) */
+  src: string;
+  /** Volume from 0 to 1 */
+  volume: number;
+  /** Whether music should loop */
+  loop: boolean;
 };
 
 export type AppConfig = {
   password: string;
+  /** Background images for each scene - edit paths here! */
+  backgrounds: BackgroundConfig;
+  /** Background music settings */
+  backgroundMusic: BackgroundMusicConfig;
   passwordScene: {
     title: string;
     subtitle: string;
@@ -71,6 +102,31 @@ export type AppConfig = {
 
 export const appConfig: AppConfig = {
   password: "20050305",
+
+  // ============================================================
+  // 🎨 BACKGROUND IMAGES - Edit these paths to customize!
+  // Place your images in the /public folder and reference them here
+  // ============================================================
+  backgrounds: {
+    passwordScene: "/backgrounds/password-bg.jpg", // Unlock/password screen
+    introScene: "/backgrounds/intro-bg.jpg", // Welcome/intro screen
+    questionScene: "/backgrounds/questions/q5.jpg", // Quiz questions
+    proposalScene: "/backgrounds/proposal-bg.jpg", // Final proposal scene
+    snapshotScene: "/backgrounds/questions/q4.jpg", // Memory gallery
+    default: "/backgrounds/default-bg.jpg", // Fallback background
+  },
+
+  // ============================================================
+  // 🎵 BACKGROUND MUSIC - Edit these settings!
+  // Place your music file in /public folder
+  // ============================================================
+  backgroundMusic: {
+    enabled: true,
+    src: "/music/background-music.mp3", // Your romantic background music
+    volume: 0.1, // 0 to 1 (0.1 = 10% volume)
+    loop: true, // Loop the music
+  },
+
   passwordScene: {
     title: "Addressed to [REDACTED]",
     subtitle: "Need type password first :D",
@@ -87,23 +143,30 @@ export const appConfig: AppConfig = {
     primaryCta: "Okei",
     secondaryCta: "No la u den",
   },
+
+  // ============================================================
+  // 🔊 SOUND EFFECTS - Edit these paths for cuter sounds!
+  // Place your sound files in /public/sfx folder
+  // ============================================================
   sfx: {
     enabled: true,
     volume: 0.4,
     sounds: {
-      click: "/sfx/click.wav",
-      correct: "/sfx/correct.wav",
-      incorrect: "/sfx/incorrect.wav",
-      transition: "/sfx/transition.wav",
-      success: "/sfx/success.wav",
+      click: "/sfx/click.wav", // Button click sound
+      correct: "/sfx/correct.wav", // Correct answer - make it cute! 🎉
+      incorrect: "/sfx/incorrect.wav", // Wrong answer - gentle & cute 💕
+      transition: "/sfx/transition.wav", // Scene transition sound
+      success: "/sfx/success.wav", // Final success/celebration sound
     },
   },
+
   questions: [
     {
       id: 1,
       text: "What is my VERY FIRST first FIRST impression of you?",
       options: ["Genuine", "Cute", "Popular", "Pretty"],
       answer: "Popular",
+      backdrop: "/backgrounds/questions/q1.jpg", // 🎨 Question 1 backdrop
       sceneCopy: {
         correctText: "Of course you would get it right bb of course !!",
         incorrectText: "Cute guess !!",
@@ -278,6 +341,7 @@ export const appConfig: AppConfig = {
       text: "What is your first FIRST impression of me?",
       options: ["Funny", "Man-bun", "Cannot swim", "Smol School"],
       answer: "Man-bun",
+      backdrop: "/backgrounds/questions/q2.jpg", // 🎨 Question 2 backdrop
       sceneCopy: {
         correctText: "Of course you'd choose manbun",
         incorrectText: "i mean ya la but u den",
@@ -458,6 +522,7 @@ export const appConfig: AppConfig = {
         "Dead Rat",
       ],
       answer: "Dead Rat",
+      backdrop: "/backgrounds/questions/q3.jpg", // 🎨 Question 3 backdrop
       sceneCopy: {
         correctText: "haha yay",
         incorrectText: "soli bb hahaha",
@@ -637,6 +702,7 @@ export const appConfig: AppConfig = {
         "Jacket with gloves and shoes",
       ],
       answer: "Jacket with no gloves and no shoes",
+      backdrop: "/backgrounds/questions/q4.jpg", // 🎨 Question 4 backdrop
       sceneCopy: {
         correctText: "Not cold at all.",
         incorrectText: "no ba it was colder ba",
@@ -811,6 +877,7 @@ export const appConfig: AppConfig = {
       text: "Your favourite guy from here",
       options: ["Nicky", "Parry", "Rangy", "Yirongy"],
       answer: "Yirongy",
+      backdrop: "/backgrounds/questions/q5.jpg", // 🎨 Question 5 backdrop
       sceneCopy: {
         correctText: "Who else",
         incorrectText: "huhhhhhhhhhhhhhhhhhhhhhhhhhh",
@@ -985,6 +1052,7 @@ export const appConfig: AppConfig = {
       text: "My most fearful phrase is 'u-",
       options: ["hates me'", "donch cares'", "lol'", "knows'"],
       answer: "lol'",
+      backdrop: "/backgrounds/questions/q6.jpg", // 🎨 Question 6 backdrop
       sceneCopy: {
         correctText: "u knows one",
         incorrectText: "love u bb",
@@ -1164,6 +1232,7 @@ export const appConfig: AppConfig = {
         "drive you around",
       ],
       answer: "eat your food",
+      backdrop: "/backgrounds/questions/q7.jpg", // 🎨 Question 7 backdrop
       sceneCopy: {
         correctText: "of course",
         incorrectText: "no la u den",
@@ -1338,6 +1407,7 @@ export const appConfig: AppConfig = {
       text: "Where did we first play?",
       options: ["Munich", "Prague", "Hallstatt", "Budapesht"],
       answer: "Munich",
+      backdrop: "/backgrounds/questions/q8.jpg", // 🎨 Question 8 backdrop
       sceneCopy: {
         correctText: "oops hahhahaa",
         incorrectText: "ooopsss hahahhaa play play play",
@@ -1497,6 +1567,7 @@ export const appConfig: AppConfig = {
         "Cooking shit food for you",
       ],
       answer: "Burning your pot",
+      backdrop: "/backgrounds/questions/q9.jpg", // 🎨 Question 9 backdrop
       sceneCopy: {
         correctText: "yaaaaaa sed",
         incorrectText: "yes that too ig",
@@ -1641,6 +1712,7 @@ export const appConfig: AppConfig = {
         "All of it",
       ],
       answer: "All of it",
+      backdrop: "/backgrounds/questions/q10.jpg", // 🎨 Question 10 backdrop
       sceneCopy: {
         correctText: "All of it.",
         incorrectText: "Still all of it.",
@@ -1835,6 +1907,7 @@ export const appConfig: AppConfig = {
       text: "How did I feel meeting your parents first time?",
       options: ["scared", "scared", "scared", "scared"],
       answer: "scared",
+      backdrop: "/backgrounds/questions/q11.jpg", // 🎨 Question 11 backdrop
       sceneCopy: {
         correctText: "scared",
         incorrectText: "scared",
@@ -1922,6 +1995,7 @@ export const appConfig: AppConfig = {
       text: "Enough of the negativity, how much can I squat?",
       options: ["142.5kg", "120kg", "160kg", "150kg"],
       answer: "142.5kg",
+      backdrop: "/backgrounds/questions/q12.jpg", // 🎨 Question 12 backdrop
       sceneCopy: {
         correctText: "yes.",
         incorrectText: "no lah",

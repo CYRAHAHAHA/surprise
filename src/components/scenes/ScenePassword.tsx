@@ -54,16 +54,16 @@ const ScenePassword = ({
 
   return (
     <motion.div
-      className="mx-auto flex w-full max-w-3xl flex-col items-center gap-6 text-center"
+      className="mx-auto flex w-full max-w-md flex-col items-center gap-4 text-center"
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.9, opacity: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      <GlassCard className="mx-auto w-full min-h-[520px]">
-        <h1 className="mb-2 font-display text-3xl text-ink">{copy.title}</h1>
-        <p className="mb-6 text-sm text-ink/70">{copy.subtitle}</p>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <GlassCard className="mx-auto w-full p-6">
+        <h1 className="mb-2 font-display text-2xl text-ink">{copy.title}</h1>
+        <p className="mb-4 text-sm text-ink/70">{copy.subtitle}</p>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <label className="text-left text-xs uppercase tracking-[0.3em] text-ink/50">
             {copy.label}
           </label>
@@ -71,7 +71,7 @@ const ScenePassword = ({
             type="password"
             value={value}
             onChange={(event) => setValue(event.target.value)}
-            className="rounded-2xl border border-white/70 bg-white/70 px-4 py-3 text-base font-semibold text-ink shadow-sm outline-none focus:border-rose focus:ring-2 focus:ring-rose/50"
+            className="rounded-xl border border-white/70 bg-white/70 px-4 py-2.5 text-base font-semibold text-ink shadow-sm outline-none focus:border-rose focus:ring-2 focus:ring-rose/50"
             placeholder={copy.placeholder}
           />
           {error ? <p className="text-sm text-rose">{error}</p> : null}

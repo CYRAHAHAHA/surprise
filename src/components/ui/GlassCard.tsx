@@ -1,9 +1,14 @@
 import { HTMLAttributes } from "react";
 
-const GlassCard = ({ className = "", ...props }: HTMLAttributes<HTMLDivElement>) => {
+type GlassCardProps = HTMLAttributes<HTMLDivElement> & {
+  transparent?: boolean;
+};
+
+const GlassCard = ({ className = "", transparent = false, ...props }: GlassCardProps) => {
+  const baseClass = transparent ? "glass-card-transparent" : "glass-card";
   return (
     <div
-      className={`glass-card rounded-3xl border border-white/60 p-6 shadow-glow ${className}`}
+      className={`${baseClass} rounded-3xl border border-white/60 p-6 shadow-glow transition-all duration-500 ${className}`}
       {...props}
     />
   );

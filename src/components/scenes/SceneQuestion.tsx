@@ -51,6 +51,12 @@ const SceneQuestion = ({
 
   const activeCopy = question.sceneCopy ?? copy;
 
+  // Play transition sound when clicking "Next Question"
+  const handleNext = () => {
+    play("transition");
+    onNext();
+  };
+
   const bubbles = useMemo<Bubble[]>(
     () => {
       if (!question.memories.length) {
@@ -246,22 +252,25 @@ const SceneQuestion = ({
 
   return (
     <motion.div
-      className="mx-auto flex w-full max-w-3xl flex-col gap-6"
+      className="mx-auto flex w-full max-w-3xl flex-col gap-4"
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.9, opacity: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      <GlassCard className={`mx-auto w-full min-h-[520px] ${isCompact ? "p-4" : "p-8"}`}>
+      <GlassCard
+        className={`mx-auto w-full ${isCompact ? "p-3" : "p-5"}`}
+        transparent={phase === "memories"}
+      >
         {phase !== "memories" ? (
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4">
             <div className="text-xs uppercase tracking-[0.3em] text-ink/50">
               Question {index + 1} of {total}
             </div>
-            <h2 className="font-display text-2xl text-ink md:text-3xl">
+            <h2 className="font-display text-xl text-ink md:text-2xl">
               {question.text}
             </h2>
-            <div className="grid gap-3 md:grid-cols-2">
+            <div className="grid gap-2 md:grid-cols-2">
               {question.options.map((option) => {
                 const isSelected = selected === option;
                 const isCorrect = option === question.answer;
@@ -288,20 +297,20 @@ const SceneQuestion = ({
                 {selected === question.answer
                   ? activeCopy?.correctText ?? "Perfectly right."
                   : activeCopy?.incorrectText ??
-                    "Still adorable. Here's the memory."}
+                  "Still adorable. Here's the memory."}
               </p>
             ) : null}
           </div>
         ) : (
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
             <div
               ref={bubbleBoundsRef}
-              className="relative mx-auto h-[450px] w-full max-w-[700px] overflow-hidden rounded-3xl border border-white/60 bg-white/50"
+              className="relative h-[380px] w-full overflow-hidden rounded-2xl border border-white/60 bg-white/30"
             >
               {question.memories.map((memory, idx) => (
                 <motion.div
                   key={`${memory.url}-${idx}`}
-                  className="absolute flex w-36 -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-2"
+                  className="absolute flex w-28 -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1"
                   style={{
                     left: `${bubbles[idx]?.startX ?? 50}%`,
                     top: `${bubbles[idx]?.startY ?? 50}%`,
@@ -321,20 +330,20 @@ const SceneQuestion = ({
                     ease: "easeInOut",
                   }}
                 >
-                  <div className="h-28 w-28 overflow-hidden rounded-full border border-white/70 shadow-lg">
+                  <div className="h-24 w-24 overflow-hidden rounded-full border border-white/70 shadow-lg">
                     {renderBubbleMedia(memory.url)}
                   </div>
                 </motion.div>
               ))}
             </div>
-            <p className="text-sm text-ink/70">
+            <p className="text-sm text-ink/70 text-center">
               {activeCopy?.memoryHint ??
                 "Little bubbles drifting through my favorite moments."}
             </p>
             {showNext ? (
-              <MotionButton onClick={onNext}>{nextLabel}</MotionButton>
+              <MotionButton onClick={handleNext}>{nextLabel}</MotionButton>
             ) : (
-              <div className="text-xs uppercase tracking-[0.3em] text-ink/40">
+              <div className="text-xs uppercase tracking-[0.3em] text-ink/40 text-center">
                 {activeCopy?.loadingText ?? "Collecting the next moment..."}
               </div>
             )}

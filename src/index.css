@@ -16,21 +16,40 @@ body {
   margin: 0;
   font-family: "Manrope", system-ui, sans-serif;
   color: #1f1b24;
-  background: radial-gradient(circle at top, rgba(243, 232, 255, 0.9), transparent 55%),
-    radial-gradient(circle at 20% 20%, rgba(252, 231, 243, 0.8), transparent 45%),
+  background:
+    radial-gradient(circle at top, rgba(243, 232, 255, 0.9), transparent 55%),
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(252, 231, 243, 0.8),
+      transparent 45%
+    ),
     linear-gradient(135deg, #fdf4ff 0%, #ffe4ef 50%, #f3e8ff 100%);
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+}
+
+html {
+  overflow: hidden;
+  height: 100vh;
 }
 
 #root {
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 24px 80px rgba(124, 58, 237, 0.15);
-  backdrop-filter: blur(24px);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 24px 80px rgba(124, 58, 237, 0.1);
+  backdrop-filter: blur(20px);
+}
+
+.glass-card-transparent {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 24px 80px rgba(124, 58, 237, 0.08);
+  backdrop-filter: blur(16px);
 }
 
 .text-shadow {

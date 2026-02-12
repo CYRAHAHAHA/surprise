@@ -67,29 +67,54 @@ const SceneSnapshot = ({ config }: SceneSnapshotProps) => {
                   gridTemplateColumns: `repeat(${row.length}, minmax(0, 1fr))`,
                 }}
               >
-                {row.map((item) => (
-                  <button
-                    key={item.key}
-                    onClick={() => setActive(item)}
-                    className="group flex min-h-[120px] flex-col justify-between rounded-3xl border border-white/60 bg-white/60 p-4 text-left transition hover:scale-[1.01]"
-                  >
-                    <div className="text-xs uppercase tracking-[0.3em] text-ink/50">
-                      {item.type === "intro"
-                        ? "Intro"
-                        : item.type === "proposal"
-                          ? "Finale"
-                          : `Q${item.question.id}`}
-                    </div>
-                    <div className="mt-4 text-sm font-semibold text-ink">
-                      {item.type === "intro"
-                        ? config.intro.title
-                        : item.type === "proposal"
-                          ? config.proposal.message
-                          : item.question.text}
-                    </div>
-                    <span className="mt-2 text-xs text-rose/80">Tap to replay</span>
-                  </button>
-                ))}
+                {row.map((item) => {
+                  // Determine the background image for this card
+                  const getBackgroundImage = () => {
+                    if (item.type === "intro") {
+                      return config.backgrounds.introScene;
+                    } else if (item.type === "proposal") {
+                      return config.backgrounds.proposalScene;
+                    } else if (item.type === "question") {
+                      return item.question.backdrop || config.backgrounds.questionScene;
+                    }
+                    return config.backgrounds.default;
+                  };
+
+                  return (
+                    <button
+                      key={item.key}
+                      onClick={() => setActive(item)}
+                      className="group relative flex min-h-[120px] flex-col justify-between overflow-hidden rounded-3xl border border-white/40 p-4 text-left transition hover:scale-[1.02]"
+                      style={{
+                        backgroundImage: `url(${getBackgroundImage()})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    >
+                      {/* Semi-transparent overlay for text readability */}
+                      <div className="absolute inset-0 bg-white/40" />
+
+                      {/* Content on top of overlay */}
+                      <div className="relative z-10 flex h-full flex-col justify-between">
+                        <div className="text-xs uppercase tracking-[0.3em] text-ink/70 drop-shadow-sm">
+                          {item.type === "intro"
+                            ? "Intro"
+                            : item.type === "proposal"
+                              ? "Finale"
+                              : `Q${item.question.id}`}
+                        </div>
+                        <div className="mt-4 text-sm font-semibold text-ink drop-shadow-sm">
+                          {item.type === "intro"
+                            ? config.intro.title
+                            : item.type === "proposal"
+                              ? config.proposal.message
+                              : item.question.text}
+                        </div>
+                        <span className="mt-2 text-xs font-medium text-rose drop-shadow-sm">Tap to replay</span>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             ))}
           </div>
