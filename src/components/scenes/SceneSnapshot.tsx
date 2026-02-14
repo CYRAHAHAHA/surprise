@@ -18,6 +18,7 @@ type SceneSnapshotProps = {
 
 const SceneSnapshot = ({ config }: SceneSnapshotProps) => {
   const [active, setActive] = useState<SnapshotItem | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   const items = useMemo<SnapshotItem[]>(
     () => [
@@ -94,6 +95,29 @@ const SceneSnapshot = ({ config }: SceneSnapshotProps) => {
                     >
                       {/* Semi-transparent overlay for text readability */}
                       <div className="absolute inset-0 bg-white/40" />
+
+                      {/* Photo preview icon — top-right */}
+                      <div
+                        role="button"
+                        tabIndex={0}
+                        title="View montage"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setPreviewImage(assetUrl(getBackgroundImage()));
+                        }}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.stopPropagation();
+                            setPreviewImage(assetUrl(getBackgroundImage()));
+                          }
+                        }}
+                        className="absolute right-2 top-2 z-20 flex h-7 w-7 items-center justify-center rounded-full bg-white/70 text-ink/60 shadow-sm transition hover:bg-white hover:text-ink hover:scale-110"
+                      >
+                        {/* Camera / image icon (SVG) */}
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
+                          <path fillRule="evenodd" d="M1 8a2 2 0 0 1 2-2h.93a2 2 0 0 0 1.664-.89l.812-1.22A2 2 0 0 1 8.07 3h3.86a2 2 0 0 1 1.664.89l.812 1.22A2 2 0 0 0 16.07 6H17a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8Zm9 3a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 2a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" clipRule="evenodd" />
+                        </svg>
+                      </div>
 
                       {/* Content on top of overlay */}
                       <div className="relative z-10 flex h-full flex-col justify-between">
@@ -177,6 +201,40 @@ const SceneSnapshot = ({ config }: SceneSnapshotProps) => {
                   isCompact
                 />
               ) : null}
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+
+      {/* Full-screen montage preview modal */}
+      <AnimatePresence>
+        {previewImage ? (
+          <motion.div
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/70 p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setPreviewImage(null)}
+          >
+            <motion.div
+              className="relative max-h-[90vh] max-w-[90vw]"
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setPreviewImage(null)}
+                className="absolute -top-10 right-0 rounded-full bg-white/80 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-ink shadow-md transition hover:bg-white"
+              >
+                ✕ Close
+              </button>
+              <img
+                src={previewImage}
+                alt="Montage preview"
+                className="max-h-[85vh] max-w-[90vw] rounded-2xl object-contain shadow-2xl"
+              />
             </motion.div>
           </motion.div>
         ) : null}

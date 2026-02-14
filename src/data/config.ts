@@ -338,12 +338,12 @@ export const appConfig: AppConfig = {
     },
     {
       id: 2,
-      text: "What is your first FIRST impression of me?",
-      options: ["Funny", "Man-bun", "Cannot swim", "Smol School"],
-      answer: "Man-bun",
+      text: "What was I most insecure about when I brought you home?",
+      options: ["no engrish mudder", "bo-chap brothers", "smol home", "little brother energy"],
+      answer: "smol home",
       backdrop: "/backgrounds/questions/q2.jpg", // 🎨 Question 2 backdrop
       sceneCopy: {
-        correctText: "Of course you'd choose manbun",
+        correctText: ":)",
         incorrectText: "i mean ya la but u den",
         memoryHint:
           "1 month til you're flying... we still like ea other after a month!",
@@ -514,18 +514,18 @@ export const appConfig: AppConfig = {
     },
     {
       id: 3,
-      text: "What do I remember most from our first date",
+      text: "How did I feel eating your home baked cookies?",
       options: [
-        "Keep your rice bowl",
-        "You drink more",
-        "Take Grab go your house first",
-        "Dead Rat",
+        "Touched",
+        "Disgusted",
+        "Thanks but next time no need la",
+        "Hungry",
       ],
-      answer: "Dead Rat",
+      answer: "Touched",
       backdrop: "/backgrounds/questions/q3.jpg", // 🎨 Question 3 backdrop
       sceneCopy: {
         correctText: "haha yay",
-        incorrectText: "soli bb hahaha",
+        incorrectText: "I really appreciated it!",
         memoryHint: "Welcome to Europe !!",
         loadingText: "Loading April 2025...",
       },
@@ -1992,9 +1992,9 @@ export const appConfig: AppConfig = {
     },
     {
       id: 12,
-      text: "Enough of the negativity, how much can I squat?",
-      options: ["142.5kg", "120kg", "160kg", "150kg"],
-      answer: "142.5kg",
+      text: "How much did I spend on Sushiro since knowing you?",
+      options: ["$283.67", "$210.23", "$321.43", "$350.96"],
+      answer: "$283.67",
       backdrop: "/backgrounds/questions/q12.jpg", // 🎨 Question 12 backdrop
       sceneCopy: {
         correctText: "yes.",
@@ -2083,7 +2083,7 @@ export const appConfig: AppConfig = {
     title:
       "Now that you're reminded of this thing of a SG man you're dating right now...",
     message: "",
-    audioUrl: "/media/proposal.mp3",
+    audioUrl: "/sfx/question.m4a",
     yesText: "Yes",
     noText: "No",
     successMessage: "Thank you for enriching my life 💖",

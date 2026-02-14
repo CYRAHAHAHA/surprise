@@ -36,9 +36,8 @@ const SceneHook = ({
       <GlassCard className={`mx-auto w-full min-h-[520px] ${isCompact ? "p-4" : "p-8"}`}>
         <div className="flex flex-col gap-4">
           <div
-            className={`grid gap-3 ${
-              sources.length > 1 ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"
-            }`}
+            className={`grid gap-3 ${sources.length > 1 ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"
+              }`}
           >
             {sources.map((src) => (
               <div
@@ -46,9 +45,8 @@ const SceneHook = ({
                 className="overflow-hidden rounded-3xl border border-white/60"
               >
                 <video
-                  className={`w-full object-cover ${
-                    isCompact ? "h-44 md:h-52" : "h-56 md:h-72"
-                  }`}
+                  className={`w-full object-cover ${isCompact ? "h-44 md:h-52" : "h-56 md:h-72"
+                    }`}
                   src={assetUrl(src)}
                   autoPlay
                   loop

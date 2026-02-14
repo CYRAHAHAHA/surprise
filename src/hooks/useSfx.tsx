@@ -29,7 +29,7 @@ type SfxContextValue = {
 };
 
 const SfxContext = createContext<SfxContextValue>({
-  play: () => {},
+  play: () => { },
   enabled: false,
 });
 
