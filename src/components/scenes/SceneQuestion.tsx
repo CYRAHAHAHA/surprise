@@ -5,6 +5,7 @@ import MotionButton from "../ui/MotionButton";
 import { Question } from "../../data/config";
 import { randomBetween } from "../../utils/random";
 import { useSfx } from "../../hooks/useSfx";
+import { assetUrl } from "../../utils/assetUrl";
 
 type SceneQuestionProps = {
   question: Question;
@@ -235,10 +236,11 @@ const SceneQuestion = ({
   };
 
   const renderBubbleMedia = (url: string) => {
+    const resolved = assetUrl(url);
     if (url.match(/\.(mp4|webm|ogg)$/i)) {
       return (
         <video
-          src={url}
+          src={resolved}
           autoPlay
           loop
           muted
@@ -247,7 +249,7 @@ const SceneQuestion = ({
         />
       );
     }
-    return <img src={url} alt="memory" className="h-full w-full object-cover" />;
+    return <img src={resolved} alt="memory" className="h-full w-full object-cover" />;
   };
 
   return (

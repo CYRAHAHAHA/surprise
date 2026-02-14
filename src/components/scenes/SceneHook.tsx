@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import GlassCard from "../ui/GlassCard";
 import MotionButton from "../ui/MotionButton";
+import { assetUrl } from "../../utils/assetUrl";
 
 type SceneHookProps = {
   title: string;
@@ -48,7 +49,7 @@ const SceneHook = ({
                   className={`w-full object-cover ${
                     isCompact ? "h-44 md:h-52" : "h-56 md:h-72"
                   }`}
-                  src={src}
+                  src={assetUrl(src)}
                   autoPlay
                   loop
                   muted

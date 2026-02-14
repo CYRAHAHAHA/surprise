@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import GlassCard from "../ui/GlassCard";
 import MotionButton from "../ui/MotionButton";
+import { assetUrl } from "../../utils/assetUrl";
 
 type SceneProposalProps = {
   title: string;
@@ -52,7 +53,7 @@ const SceneProposal = ({
         <div className="flex flex-col gap-4 text-center">
           <h2 className="font-display text-3xl text-ink">{title}</h2>
           <p className="text-lg text-ink/70">{message}</p>
-          <audio ref={audioRef} src={audioUrl} autoPlay />
+          <audio ref={audioRef} src={assetUrl(audioUrl)} autoPlay />
           {audioBlocked ? (
             <button
               onClick={() => audioRef.current?.play()}

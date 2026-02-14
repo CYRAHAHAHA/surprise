@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useCallback, useEffect } from "react";
 import { BackgroundConfig } from "../data/config";
+import { assetUrl } from "../utils/assetUrl";
 
 export type SceneType = "password" | "intro" | "question" | "proposal" | "snapshot" | "default";
 
@@ -43,7 +44,7 @@ export const BackgroundProvider = ({
     );
 
     // Use custom background if set, otherwise use scene background
-    const currentBackground = customBackground || getBackgroundForScene(currentScene);
+    const currentBackground = assetUrl(customBackground || getBackgroundForScene(currentScene));
 
     const setScene = useCallback((scene: SceneType) => {
         setCurrentScene(scene);

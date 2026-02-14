@@ -7,6 +7,7 @@ import {
   useRef,
 } from "react";
 import { Howl } from "howler";
+import { assetUrl } from "../utils/assetUrl";
 
 export type SfxSounds = {
   click?: string;
@@ -51,7 +52,7 @@ export const SfxProvider = ({
     for (const [key, src] of entries) {
       if (!src) continue;
       next[key] = new Howl({
-        src: [src],
+        src: [assetUrl(src)],
         volume,
         preload: true,
       });

@@ -5,6 +5,7 @@ import SceneHook from "./SceneHook";
 import SceneQuestion from "./SceneQuestion";
 import SceneProposal from "./SceneProposal";
 import { AppConfig, Question } from "../../data/config";
+import { assetUrl } from "../../utils/assetUrl";
 
 type SnapshotItem =
   | { key: string; type: "intro" }
@@ -86,7 +87,7 @@ const SceneSnapshot = ({ config }: SceneSnapshotProps) => {
                       onClick={() => setActive(item)}
                       className="group relative flex min-h-[120px] flex-col justify-between overflow-hidden rounded-3xl border border-white/40 p-4 text-left transition hover:scale-[1.02]"
                       style={{
-                        backgroundImage: `url(${getBackgroundImage()})`,
+                        backgroundImage: `url(${assetUrl(getBackgroundImage())})`,
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                       }}

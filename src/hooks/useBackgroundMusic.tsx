@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useRef, useState, useCallback } from "react";
 import { Howl } from "howler";
+import { assetUrl } from "../utils/assetUrl";
 
 export type BackgroundMusicConfig = {
     enabled: boolean;
@@ -39,7 +40,7 @@ export const BackgroundMusicProvider = ({
         if (!config?.enabled || !config.src) return;
 
         const howl = new Howl({
-            src: [config.src],
+            src: [assetUrl(config.src)],
             volume: config.volume ?? 0.3,
             loop: config.loop ?? true,
             preload: true,
